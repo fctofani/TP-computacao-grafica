@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
 
     IEnumerator LeftMove() 
     {
-        for(float i = 0; i < 5; i += 0.1f) {
+        for(float i = 0; i < 2; i += 0.1f) {
             controller.Move(Vector3.left * Time.deltaTime * horizontalSpeed);
             yield return null;
         }
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
 
     IEnumerator RightMove()
     {
-        for(float i = 0; i < 5; i += 0.1f) {
+        for(float i = 0; i < 2; i += 0.1f) {
             controller.Move(Vector3.right * Time.deltaTime * horizontalSpeed);
             yield return null;
         }

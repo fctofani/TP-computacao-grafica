@@ -8,7 +8,7 @@ public class SpawnPlatform : MonoBehaviour
     public List<GameObject> platforms = new List<GameObject>();
     public List<Transform> currentPlatforms = new List<Transform>();
     public int offset = 0;
-    public int pSize = 30; // tamanho das plataformas
+    public int pSize = 29; // tamanho das plataformas
 
     private Transform player;
     private Transform currentPlatformEnd;
