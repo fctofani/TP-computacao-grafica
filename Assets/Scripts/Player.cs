@@ -10,13 +10,17 @@ public class Player : MonoBehaviour
 
     public float speed;
     public float jumpHeight;
-    public float gravity;
+    public float gravity = -9.07f;
     public float horizontalSpeed;
+
+    public Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        anim = GetComponent<Animator>();
+        anim.SetBool("Jumping", false);
     }
 
     // Update is called once per frame
@@ -25,17 +29,21 @@ public class Player : MonoBehaviour
         Vector3 direction = Vector3.forward * speed;
 
         if(controller.isGrounded) {
-            if(Input.GetKeyDown(KeyCode.Space)) {
-                jumpSpeed = jumpHeight;
+            anim.SetBool("Jumping", false);
+            jumpSpeed = 0;    
+            if(Input.GetKeyDown(KeyCode.Space)) {   
+                jumpSpeed += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+                anim.SetBool("Jumping", true);
             }
-            if(Input.GetKeyDown(KeyCode.A)) {
+            if(Input.GetKeyDown(KeyCode.A) && transform.position.x > -1.4f) {
                 StartCoroutine(LeftMove());
             }
-            if(Input.GetKeyDown(KeyCode.D)) {
+            if(Input.GetKeyDown(KeyCode.D) && transform.position.x < 1.4f) {
                 StartCoroutine(RightMove());
             }
-        } else {
-            jumpSpeed -= gravity;
+        } else {   
+            jumpSpeed += gravity * Time.deltaTime;
+            
         }
 
         direction.y = jumpSpeed;
