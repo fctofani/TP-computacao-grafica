@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     public float gravity = -9.07f;
     public float horizontalSpeed;
 
+    private bool isMovingLeft;
+    private bool isMovingRight;
+
     public Animator anim;
 
     // Start is called before the first frame update
@@ -35,10 +38,12 @@ public class Player : MonoBehaviour
                 jumpSpeed += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
                 anim.SetBool("Jumping", true);
             }
-            if(Input.GetKeyDown(KeyCode.A) && transform.position.x > -1.4f) {
+            if(Input.GetKeyDown(KeyCode.A) && controller.transform.position.x > -2.2f && !isMovingLeft) {
+                isMovingLeft = true;
                 StartCoroutine(LeftMove());
             }
-            if(Input.GetKeyDown(KeyCode.D) && transform.position.x < 1.4f) {
+            if(Input.GetKeyDown(KeyCode.D) && controller.transform.position.x < 2.2f && !isMovingRight) {
+                isMovingRight = true;
                 StartCoroutine(RightMove());
             }
         } else {   
@@ -52,17 +57,25 @@ public class Player : MonoBehaviour
 
     IEnumerator LeftMove() 
     {
-        for(float i = 0; i < 2; i += 0.1f) {
-            controller.Move(Vector3.left * Time.deltaTime * horizontalSpeed);
+        for(float i = 0; i < 3; i += 0.1f) {
+            if (controller.transform.position.x > -2.2f)
+            {
+                controller.Move(Vector3.left * Time.deltaTime * horizontalSpeed);
+            }
             yield return null;
         }
+        isMovingLeft = false;
     }
 
     IEnumerator RightMove()
     {
-        for(float i = 0; i < 2; i += 0.1f) {
-            controller.Move(Vector3.right * Time.deltaTime * horizontalSpeed);
+        for(float i = 0; i < 3; i += 0.1f) {
+            if (controller.transform.position.x < 2.2f)
+            {
+                controller.Move(Vector3.right * Time.deltaTime * horizontalSpeed);
+            }
             yield return null;
         }
+        isMovingRight = false;
     }
 }
