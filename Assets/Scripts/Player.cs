@@ -31,20 +31,23 @@ public class Player : MonoBehaviour
     {
         Vector3 direction = Vector3.forward * speed;
 
-        if(controller.isGrounded) {
+        if (Input.GetKeyDown(KeyCode.A) && controller.transform.position.x > -2.2f && !isMovingLeft)
+        {
+            isMovingLeft = true;
+            StartCoroutine(LeftMove());
+        }
+        if (Input.GetKeyDown(KeyCode.D) && controller.transform.position.x < 2.2f && !isMovingRight)
+        {
+            isMovingRight = true;
+            StartCoroutine(RightMove());
+        }
+
+        if (controller.isGrounded) {
             anim.SetBool("Jumping", false);
             jumpSpeed = 0;    
             if(Input.GetKeyDown(KeyCode.Space)) {   
                 jumpSpeed += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
                 anim.SetBool("Jumping", true);
-            }
-            if(Input.GetKeyDown(KeyCode.A) && controller.transform.position.x > -2.2f && !isMovingLeft) {
-                isMovingLeft = true;
-                StartCoroutine(LeftMove());
-            }
-            if(Input.GetKeyDown(KeyCode.D) && controller.transform.position.x < 2.2f && !isMovingRight) {
-                isMovingRight = true;
-                StartCoroutine(RightMove());
             }
         } else {   
             jumpSpeed += gravity * Time.deltaTime;
