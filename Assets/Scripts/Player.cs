@@ -31,17 +31,6 @@ public class Player : MonoBehaviour
     {
         Vector3 direction = Vector3.forward * speed;
 
-        if (Input.GetKeyDown(KeyCode.A) && controller.transform.position.x > -2.2f && !isMovingLeft)
-        {
-            isMovingLeft = true;
-            StartCoroutine(LeftMove());
-        }
-        if (Input.GetKeyDown(KeyCode.D) && controller.transform.position.x < 2.2f && !isMovingRight)
-        {
-            isMovingRight = true;
-            StartCoroutine(RightMove());
-        }
-
         if (controller.isGrounded) {
             anim.SetBool("Jumping", false);
             jumpSpeed = 0;    
@@ -52,6 +41,17 @@ public class Player : MonoBehaviour
         } else {   
             jumpSpeed += gravity * Time.deltaTime;
             
+        }
+
+        if (Input.GetKeyDown(KeyCode.A) && controller.transform.position.x > -2.2f && !isMovingLeft)
+        {
+            isMovingLeft = true;
+            StartCoroutine(LeftMove());
+        }
+        if (Input.GetKeyDown(KeyCode.D) && controller.transform.position.x < 2.2f && !isMovingRight)
+        {
+            isMovingRight = true;
+            StartCoroutine(RightMove());
         }
 
         direction.y = jumpSpeed;
