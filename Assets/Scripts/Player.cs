@@ -37,14 +37,19 @@ public class Player : MonoBehaviour
     private int currentLetter = 0;
 
     private int[] wordLetters;
+    private bool[] capturedLetters;
+    int correctLetter = -1;
 
     public float rayRadius;
     public LayerMask letterLayer;
+
+    private char[] aux;
 
     // Start is called before the first frame update
     void Start()
     {
         wordLetters = new int[wordIncomplete.Length];
+        capturedLetters = new bool[wordIncomplete.Length];
         word.text = wordIncomplete;
 
         
@@ -136,13 +141,48 @@ public class Player : MonoBehaviour
         {
             Debug.LogWarning("ENCOSTOU");
 
-            Debug.LogWarning(letterHit.transform.gameObject.name);
+            //Debug.LogWarning(letterHit.transform.gameObject.name);
+
+            String[] name = letterHit.transform.gameObject.name.Split('(');
+            aux = new char[wordIncomplete.Length];
+
+            correctLetter = -1;
+
+            for (int i=0; i<wordIncomplete.Length; i++)
+            {
+                if(wordIncomplete[i].ToString() == name[0] &&
+                    capturedLetters[i] == false)
+                {
+                    capturedLetters[i] = true;
+                    correctLetter = i; // controle para saber se a letra já foi capturada
+                    Debug.LogWarning("CAPTUROU");
+
+                    i = wordIncomplete.Length;
+                }
+            }
+
+            if(correctLetter != -1)
+            {
+                for (int i = 0; i < wordIncomplete.Length; i++)
+                {
+                    if(correctLetter != i)
+                    {
+                        aux[i] = word.text[i];
+                    } else
+                    {
+                        aux[i] = Char.ToUpper(word.text[i]);
+                    }
+                }
+
+                string str = new string(aux);
+
+                word.text = str;
+
+            }
 
             Destroy(letterHit.transform.gameObject);
 
-
         }
-           // Destroy(letterHit.transform.gameObject);
 
     }
 
