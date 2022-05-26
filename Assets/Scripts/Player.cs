@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
 
     private int[] wordLetters;
     private bool[] capturedLetters;
+    int completeWordFlag = 0;
     int correctLetter = -1;
 
     public float rayRadius;
@@ -58,7 +59,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         System.Random r = new System.Random();
-        wordIncomplete = dict[r.Next(0, dict.Length)];
+        wordIncomplete = levelOne[r.Next(0, levelOne.Length)];
         gc = FindObjectOfType<GameController>();
         wordLetters = new int[wordIncomplete.Length];
         capturedLetters = new bool[wordIncomplete.Length];
@@ -166,10 +167,18 @@ public class Player : MonoBehaviour
                     capturedLetters[i] == false)
                 {
                     capturedLetters[i] = true;
+                    completeWordFlag++;
                     correctLetter = i; // controle para saber se a letra j� foi capturada
                     Debug.LogWarning("CAPTUROU");
 
                     i = wordIncomplete.Length;
+                }
+
+                if(completeWordFlag == capturedLetters.Length)
+                {
+                    System.Random anotherWord = new System.Random();
+                    wordIncomplete = levelOne[anotherWord.Next(0, levelOne.Length)];
+                    completeWordFlag = 0;
                 }
             }
 
