@@ -36,7 +36,9 @@ public class Player : MonoBehaviour
     private string wordIncomplete;
     private int currentLetter = 0;
 
-    private string[] dict = new string[4] {"love", "cake", "rock", "bird"};
+    private string[] levelOne = new string[11] {"axe","pen","pie","sofa","sink","ribs","fish","chair","table","olive","bread"};
+    private string[] levelTwo = new string[10] {"pencil","eraser","cheese","cherry","hammer","toilet","screws","spanner","pliers","hacksaw"};
+    private string[] levelThree = new string[4] {"notebook","watermelon","screwdriver","refrigerator"}
 
     private int[] wordLetters;
     private bool[] capturedLetters;
