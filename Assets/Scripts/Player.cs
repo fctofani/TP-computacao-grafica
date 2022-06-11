@@ -58,20 +58,16 @@ public class Player : MonoBehaviour
     void Start()
     {      
         gc = FindObjectOfType<GameController>();        
-        // for(int i=0; i< wordIncomplete.Length; i++)
-        // {
-        //     wordLetters[i] = Array.FindIndex(spawnLetters, letter => letter.name == wordIncomplete[i].ToString());
-        // }
-
-        // InvokeRepeating("SpawnRandom", spawntime, spawndelay);
         generateNewWord();
         controller = GetComponent<CharacterController>();
         transform.position = Vector3.zero;
         anim = GetComponent<Animator>();
         anim.SetBool("Jumping", false);
+        anim.SetBool("Dead", false);
     }
 
     void generateNewWord() {
+        CancelInvoke("SpawnRandom");
         System.Random r = new System.Random();
         wordIncomplete = dict[r.Next(0, dict.Length)];
         wordLetters = new int[wordIncomplete.Length];
@@ -156,34 +152,28 @@ public class Player : MonoBehaviour
 
         }
 
-        OnCollision();
-
         x = Mathf.Lerp(x, NewXPos, Time.deltaTime * horizontalSpeed);
         controller.Move((x - transform.position.x) * Vector3.right);
         direction.y = jumpSpeed;
         controller.Move(direction * Time.deltaTime);
-        //Debug.LogWarning(wordIncomplete[2]);
     }
 
-    void OnCollision()
+    void OnTriggerEnter(Collider collision)
     {
-        RaycastHit hit;
+        Debug.LogWarning(collision.gameObject.tag);
 
         // se for uma letra
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward + new Vector3(0f,1f,0f)), out hit, rayRadius, letterLayer))
-        {
-            Debug.LogWarning("ENCOSTOU");
+        if (collision.gameObject.tag == "Letter") {
+            Debug.LogWarning("Letra " + collision.gameObject.name);
 
-            //Debug.LogWarning(hit.transform.gameObject.name);
-
-            String[] name = hit.transform.gameObject.name.Split('(');
+            String[] name = collision.gameObject.name.Split('(');
             aux = new char[wordIncomplete.Length];
 
             correctLetter = -1;
 
             for (int i=0; i<wordIncomplete.Length; i++)
             {
-                if(wordIncomplete[i].ToString() == name[0] &&
+                if (wordIncomplete[i].ToString() == name[0] &&
                     capturedLetters[i] == false)
                 {
                     capturedLetters[i] = true;
@@ -196,8 +186,7 @@ public class Player : MonoBehaviour
                 }
             }
 
-            if(correctLetter != -1)
-            {
+            if (correctLetter != -1) {
                 string str = "";
                 for (int i = 0; i < wordIncomplete.Length; i++) {
                     if (capturedLetters[i] == true) {
@@ -218,14 +207,13 @@ public class Player : MonoBehaviour
 
             }
 
-            Destroy(hit.transform.gameObject);
+            Destroy(collision.gameObject);
 
-        }
-
-        if (!isDead && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward + new Vector3(0f,1f,0f)), out hit, rayRadius, obstacleLayer)) {
+        } if (collision.gameObject.tag == "Object" && !isDead) {
             Debug.LogWarning("OBJETO");
 
             isDead = true;
+            anim.SetBool("Dead", true);
             speed = 0;
             jumpHeight = 0;
             horizontalSpeed = 0;

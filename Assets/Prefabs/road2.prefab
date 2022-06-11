@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4398644349377621043}
   - component: {fileID: 8032062765331623325}
   - component: {fileID: 6964971058223065940}
+  - component: {fileID: 5581655099832013191}
   m_Layer: 7
   m_Name: firehydrant_01_a_LOD0
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,6 +96,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 55.054306, y: 112.479225, z: 50.300194}
   m_Center: {x: 0.000012397766, y: 56.43207, z: 6.5774384}
+--- !u!54 &5581655099832013191
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107596414925659476}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3932954765028592045
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,9 +124,10 @@ GameObject:
   - component: {fileID: 4976114440416867413}
   - component: {fileID: 5760476096130608049}
   - component: {fileID: 499261444090833079}
+  - component: {fileID: 8305980808131714738}
   m_Layer: 7
   m_Name: barricade_01_a_LOD0
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,6 +208,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 203.70776, y: 99.33775, z: 53}
   m_Center: {x: -0.7378936, y: 49, z: 5}
+--- !u!54 &8305980808131714738
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3932954765028592045}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4945321010299968344
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,9 +565,10 @@ GameObject:
   - component: {fileID: 5509509587460475467}
   - component: {fileID: 7973273046373169045}
   - component: {fileID: 864317947243224369}
+  - component: {fileID: 4206056474543860936}
   m_Layer: 7
   m_Name: bollard_d_LOD0
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -614,3 +649,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 40, y: 105.42815, z: 40}
   m_Center: {x: 0.3204794, y: 53.197685, z: -0.0004119873}
+--- !u!54 &4206056474543860936
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8605668450548467866}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
