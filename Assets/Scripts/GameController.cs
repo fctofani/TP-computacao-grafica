@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
 {
     public GameObject gameOver;
     public float score = 0;
+    public int difficulty;
 
     public Text scoreText;
 
@@ -21,7 +22,7 @@ public class GameController : MonoBehaviour
     void Update()
     {
         if (!player.isDead) {
-            score += Time.deltaTime * (player.speed / 10);
+            score += Time.deltaTime * (player.speed / (10 - difficulty));
             scoreText.text = Mathf.RoundToInt(score).ToString();
         }
     }

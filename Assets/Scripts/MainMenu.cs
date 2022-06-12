@@ -5,12 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    private GameController gc;
+
     public void ExitButton() {
         Application.Quit();
         Debug.Log("fechando jogo...");
     }
 
-    public void StartGame () {
+    public void StartGameNormal () {
         SceneManager.LoadScene("Game");
+    }
+
+    public void StartGameAdvanced () {
+        SceneManager.LoadScene("Game2");
     }
 }

@@ -36,7 +36,12 @@ public class Player : MonoBehaviour
     private string wordIncomplete;
     private int currentLetter = 0;
 
-    private string[] dict = new string[9] {"love", "cake", "rock", "bird", "cold", "bolt", "text", "tree", "algae"};
+    private string[] dict = new string[7] {"bread", "cheese", "cherry", "fish", "olive", "pie", "ribs"};
+    private string[] dictadvanced = new string[7] {"screwdriver", "hammer", "pliers", "screws", "spanner", "hacksaw", "axe"};
+
+    public AudioClip[] audiosList;
+    public AudioSource audio;
+    private int currentWord;
 
     private int[] wordLetters;
     private bool[] capturedLetters;
@@ -47,6 +52,7 @@ public class Player : MonoBehaviour
     public LayerMask obstacleLayer;
 
     public bool isDead = false;
+    private int maxSpeed;
 
     public int completeWordFlag = 0;
 
@@ -57,7 +63,14 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {      
-        gc = FindObjectOfType<GameController>();        
+        gc = FindObjectOfType<GameController>();
+        if (gc.difficulty == 0) {
+            speed = 8;
+            maxSpeed = 18;
+        } else {
+            speed = 16;
+            maxSpeed = 28;
+        }
         generateNewWord();
         controller = GetComponent<CharacterController>();
         transform.position = Vector3.zero;
@@ -69,7 +82,8 @@ public class Player : MonoBehaviour
     void generateNewWord() {
         CancelInvoke("SpawnRandom");
         System.Random r = new System.Random();
-        wordIncomplete = dict[r.Next(0, dict.Length)];
+        currentWord = r.Next(0, dict.Length);
+        if (gc.difficulty == 0) { wordIncomplete = dict[currentWord]; } else { wordIncomplete = dictadvanced[currentWord]; }
         wordLetters = new int[wordIncomplete.Length];
         capturedLetters = new bool[wordIncomplete.Length];
         word.text = wordIncomplete;
@@ -100,8 +114,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isDead && speed < 20) {
-            speed += 0.0001f;
+        if (!isDead && speed < maxSpeed) {
+            speed += 0.001f;
         }
         
         Vector3 direction = Vector3.forward * speed;
@@ -201,6 +215,8 @@ public class Player : MonoBehaviour
                 if(completeWordFlag == capturedLetters.Length)
                 {
                     gc.score += 300;
+                    audio.clip = audiosList[currentWord];
+                    audio.Play();
                     completeWordFlag = 0;
                     generateNewWord();
                 }
